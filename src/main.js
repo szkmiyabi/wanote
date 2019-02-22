@@ -6,7 +6,7 @@ let mainWindow;
 function createWindow() {
     mainWindow = new BrowserWindow({ width: 1140, height: 700, "icon": __dirname + "/icons/appicon.ico"});
     mainWindow.loadURL("file://" + __dirname + "/index.html");
-    //mainWindow.webContents.toggleDevTools();
+    mainWindow.webContents.toggleDevTools();
     Menu.setApplicationMenu(null);
     mainWindow.on("closed", () => {
          mainWindow = null;

@@ -3,6 +3,7 @@ window.onresize = doLayout;
 window.onload = function() {
     doLayout();
     initEditor();
+    headingReplaceButton();
 };
 
 function doLayout() {

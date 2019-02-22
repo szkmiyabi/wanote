@@ -24,8 +24,9 @@ body {
     border-radius: 5px;
     width: 6em;
     top: 30px;
-    left: -30px;
+    left: 0;
     visibility: hidden;
+    z-index: 1000;
 }
 .tooltip:hover span {
     visibility: visible;
