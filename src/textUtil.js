@@ -15,10 +15,11 @@ module.exports = class textUtil {
         let cr_tag = str.match(start_pt)[1].match(/(>>)(h\d)/m)[2];
         let content = str.replace(start_pt, "");
         content = content.replace(end_pt, "");
-        let datas = content.split(/\n/mg);
+        let datas = content.split(/\n/);
         if(datas.length < 1) return;
         for(var i=0; i<datas.length; i++) {
             let line = datas[i];
+            line = line.trim();
             line = line.replace(/(<\/*p.*?>|<\/*div.*?>)/g, "");
             ret += `<${cr_tag}>${line}</${cr_tag}>` + "\n";
         }
