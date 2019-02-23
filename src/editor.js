@@ -4,6 +4,7 @@ window.onload = function() {
     doLayout();
     initEditor();
     headingReplaceButton();
+    strongInsertButton();
 };
 
 function doLayout() {

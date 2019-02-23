@@ -25,4 +25,23 @@ module.exports = class textUtil {
         }
         return ret;
     }
+
+    //要素挿入
+    insert_tag(tag_name) {
+        tag_name = tag_name.toLowerCase();
+        let range = this.editor.getSelectionRange();
+        let txt = this.editor.session.getTextRange(range);
+        txt = txt.trim();
+        let tag_ham = new RegExp(/(<.+?>)(.+)(<\/.+?>)/);
+        let new_txt = "";
+        if(tag_ham.test(txt)) {
+            let mt = txt.match(tag_ham);
+            new_txt = mt[1] + `<${tag_name}>` + mt[2] + `</${tag_name}>` + mt[3];
+        } else {
+            new_txt = `<${tag_name}>${txt}</${tag_name}>`;
+        }
+        let old_txt = this.editor.getValue();
+        this.editor.setValue(old_txt + "\n\n" + new_txt);
+    }
+
 }

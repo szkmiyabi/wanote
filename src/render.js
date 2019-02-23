@@ -66,3 +66,9 @@ function headingReplaceButton() {
         editor.setValue(old_txt + "\n\n" + new_txt);
     };
 }
+
+function strongInsertButton() {
+    document.querySelector("#strong-insert").onclick = function() {
+        tu.insert_tag("strong");
+    };
+}
