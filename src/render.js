@@ -58,12 +58,7 @@ function setEditorTheme(extension) {
 
 function headingReplaceButton() {
     document.querySelector("#heading-replace").onclick = function() {
-        let range = editor.getSelectionRange();
-        let txt = editor.session.getTextRange(range);
-        let old_txt = editor.getValue();
-        //alert(txt);
-        let new_txt = tu.heading_replace(txt);
-        editor.setValue(old_txt + "\n\n" + new_txt);
+       tu.heading_replace();
     };
 }
 

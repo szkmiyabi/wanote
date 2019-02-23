@@ -6,14 +6,17 @@ module.exports = class textUtil {
         this.editor_text = editor_text;
     }
 
-    //見出しタグ自動変換 with 独自タグ
-    heading_replace(str) {
-        let ret = "";
-        str = str.replace(/(\r\n|\n|\r){2}/, "\n");
+    //見出しタグ自動変換
+    heading_replace() {
+        let new_txt = "";
+        let range = this.editor.getSelectionRange();
+        let txt = this.editor.session.getTextRange(range);
+        let old_txt = this.editor.getValue();
+        txt = txt.replace(/(\r\n|\n|\r){2}/, "\n");
         let start_pt = new RegExp(/(>>h\d\n)/m);
         let end_pt = new RegExp(/(\n>>\/h\d)/m);
-        let cr_tag = str.match(start_pt)[1].match(/(>>)(h\d)/m)[2];
-        let content = str.replace(start_pt, "");
+        let cr_tag = txt.match(start_pt)[1].match(/(>>)(h\d)/m)[2];
+        let content = txt.replace(start_pt, "");
         content = content.replace(end_pt, "");
         let datas = content.split(/\n/);
         if(datas.length < 1) return;
@@ -21,9 +24,9 @@ module.exports = class textUtil {
             let line = datas[i];
             line = line.trim();
             line = line.replace(/(<\/*p.*?>|<\/*div.*?>)/g, "");
-            ret += `<${cr_tag}>${line}</${cr_tag}>` + "\n";
+            new_txt += `<${cr_tag}>${line}</${cr_tag}>` + "\n";
         }
-        return ret;
+        this.editor.setValue(old_txt + "\n\n" + new_txt);
     }
 
     //要素挿入
