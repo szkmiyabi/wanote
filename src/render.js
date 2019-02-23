@@ -67,3 +67,9 @@ function strongInsertButton() {
         tu.insert_tag("strong");
     };
 }
+
+function listReplaceButton() {
+    document.querySelector("#list-replace").onclick = function() {
+        tu.list_replace();
+    };
+}
