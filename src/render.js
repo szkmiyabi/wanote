@@ -73,3 +73,9 @@ function listReplaceButton() {
         tu.list_replace();
     };
 }
+
+function targetBlankReplaceButton() {
+    document.querySelector("#target-blank-replace").onclick = function() {
+        tu.target_blank_replace();
+    }
+}

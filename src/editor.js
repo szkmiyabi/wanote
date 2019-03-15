@@ -6,6 +6,7 @@ window.onload = function() {
     headingReplaceButton();
     strongInsertButton();
     listReplaceButton();
+    targetBlankReplaceButton();
 };
 
 function doLayout() {

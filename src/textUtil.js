@@ -4,6 +4,8 @@ module.exports = class textUtil {
     constructor(editor, editor_text) {
         this.editor = editor;
         this.editor_text = editor_text;
+
+        this.target_blank_def_txt = "(別ウィンドウで開く)";
     }
 
     //見出しタグ自動変換
@@ -83,6 +85,46 @@ module.exports = class textUtil {
             new_txt = "<ol>\n" + new_txt + "</ol>";
         }
         this.editor.setValue(old_txt + "\n\n" + new_txt);
+    }
+
+    //別ウィンドウの明示自動修正
+    target_blank_replace() {
+        let new_txt = "";
+        let range = this.editor.getSelectionRange();
+        let txt = this.editor.session.getTextRange();
+        let old_txt = this.editor.getValue();
+        let datas = txt.split(/\n/);
+        for(var i=0; i<datas.length; i++) {
+            var type = "";
+            var row = datas[i].trim();
+            if(this._is_img_link(row)) {
+                type = "aimg";
+            } else {
+                type = "atext";
+            }
+            if(type === "aimg") {
+                row = row.replace(this._get_alt_attr_pt(), "$1$2" + this.target_blank_def_txt + "$3");
+                new_txt += row + "\n";
+            } else {
+                row = row.replace(this._get_a_pt(type), "$1$2" + this.target_blank_def_txt + "$3");
+                new_txt += row + "\n";
+            }
+        }
+        this.editor.setValue(old_txt + "\n\n" + new_txt);
+    }
+    _is_img_link(str) {
+        var pt = new RegExp(/(<a.+?>)(.*?<img.+?>.*?)(<\/a>)/);
+        return (pt.test(str) === true) ? true : false;
+    }
+    _get_a_pt(link_type) {
+        if(link_type === "aimg") {
+            return new RegExp(/(<a.+?>)(.*?<img.+?>.*?)(<\/a>)/);
+        } else {
+            return new RegExp(/(<a.+?>)(.+)(<\/a>)/);
+        }
+    }
+    _get_alt_attr_pt() {
+        return new RegExp(/(alt=")(.*?)(")/);
     }
 
 }
