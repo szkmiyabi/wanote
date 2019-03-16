@@ -7,6 +7,7 @@ window.onload = function() {
     strongInsertButton();
     listReplaceButton();
     targetBlankReplaceButton();
+    showSearchPanelButton();
 };
 
 function doLayout() {

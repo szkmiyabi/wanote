@@ -79,3 +79,9 @@ function targetBlankReplaceButton() {
         tu.target_blank_replace();
     }
 }
+
+function showSearchPanelButton() {
+    document.querySelector("#show-search-panel").onclick = function() {
+        ace.config.loadModule("ace/ext/searchbox", function(e) {e.Search(editor)});
+    };
+}

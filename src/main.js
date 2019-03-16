@@ -5,6 +5,25 @@ let mainWindow;
 
 const rmenu = Menu.buildFromTemplate([
     {
+        label: "切り取り",
+        role: "cut"        
+    },
+    {
+        label: "コピー",
+        role: "copy"
+    },
+    {
+        label: "貼り付け",
+        role: "paste"
+    },
+    {
+        label: "全て選択",
+        role: "selectall"
+    },
+    {
+        type: "separator"
+    },
+    {
         label: "DevToolを開く",
         click: () => {
             let crWindow = BrowserWindow.getFocusedWindow();
