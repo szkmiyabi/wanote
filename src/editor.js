@@ -10,6 +10,7 @@ window.onload = function() {
     showSearchPanelButton();
     bkmkTagAndAttrDelButton();
     duplicateLineButton();
+    altAttrEditButton();
 };
 
 function doLayout() {

@@ -147,4 +147,25 @@ module.exports = class textUtil {
         this.editor.session.replace(range, txt);
     }
 
+    //alt属性値を修正
+    alt_attr_edit(type, content) {
+        let range = this.editor.getSelectionRange();
+        let txt = this.editor.session.getTextRange();
+        let datas = txt.split(/\n/);
+        let new_val = "";
+        for(var i=0; i<datas.length; i++) {
+            var line = datas[i];
+            var pt = this._get_alt_attr_pt();
+            if(pt.test(line)) {
+                if(type === "overwrite") {
+                    line = line.replace(pt, "$1$2" + content + "$3");
+                } else if(type === "replace") {
+                    line = line.replace(pt, "$1" + content + "$3");
+                }
+                new_val += line + "\n";
+            }
+        }
+        this.editor.session.replace(range, new_val);
+    }
+
 }

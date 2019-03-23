@@ -2,6 +2,7 @@
 const { BrowserWindow } = require("electron").remote;
 const fs = require("fs");
 const textUtil = require(__dirname + "/textUtil");
+const { ipcRenderer } = require("electron");
 
 let editor = null;
 let tu = null;
@@ -26,6 +27,13 @@ function initEditor() {
     });
 
     tu = new textUtil(editor, editor_text);
+
+    //ipcMainからのイベント処理
+    ipcRenderer.on("alt-attr-dialog-sender", (event, arg) => {
+        var type = arg.type;
+        var content = arg.content;
+        tu.alt_attr_edit(type, content);
+    });
 }
 
 function setEditorTheme(extension) {
@@ -95,5 +103,12 @@ function bkmkTagAndAttrDelButton() {
 function duplicateLineButton() {
     document.querySelector("#duplicate-line").onclick = function() {
         editor.copyLinesDown();
+    }
+}
+
+function altAttrEditButton() {
+    document.querySelector("#alt-attr-edit").onclick = function() {
+        //ipcMainに処理を移譲
+        ipcRenderer.send("alt-attr-edit", "dummy");
     }
 }
