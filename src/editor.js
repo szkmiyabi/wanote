@@ -9,6 +9,7 @@ window.onload = function() {
     targetBlankReplaceButton();
     showSearchPanelButton();
     bkmkTagAndAttrDelButton();
+    duplicateLineButton();
 };
 
 function doLayout() {

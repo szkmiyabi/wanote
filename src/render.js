@@ -91,3 +91,9 @@ function bkmkTagAndAttrDelButton() {
         tu.bkmk_tag_and_attr_del();
     }
 }
+
+function duplicateLineButton() {
+    document.querySelector("#duplicate-line").onclick = function() {
+        editor.copyLinesDown();
+    }
+}
