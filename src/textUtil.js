@@ -127,4 +127,24 @@ module.exports = class textUtil {
         return new RegExp(/(alt=")(.*?)(")/);
     }
 
+    //minbrowserシュミレーションで付与されたspan要素とstyle属性の削除
+    bkmk_tag_and_attr_del() {
+        let range = this.editor.getSelectionRange();
+        let txt = this.editor.session.getTextRange();
+        let pt_arr = [
+            new RegExp(/( style="border:1px solid #*)([a-zA-Z0-9]+?)(; position: relative;")/mg),
+            new RegExp(/( style="border:2px dotted #*)([a-zA-Z0-9]+;")/mg),
+            new RegExp(/( style="border:1px solid #*)([a-zA-Z0-9]+;")/mg),
+            new RegExp(/(<span id=")(bkm-.+?>)(.+?)(<\/span>)/mg)
+        ];
+        for(var i=0; i<pt_arr.length; i++) {
+            try {
+                if(pt_arr[i].test(txt)) {
+                    txt = txt.replace(pt_arr[i], "");
+                }
+            } catch(e) {}
+        }
+        this.editor.session.replace(range, txt);
+    }
+
 }

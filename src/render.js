@@ -85,3 +85,9 @@ function showSearchPanelButton() {
         ace.config.loadModule("ace/ext/searchbox", function(e) {e.Search(editor)});
     };
 }
+
+function bkmkTagAndAttrDelButton() {
+    document.querySelector("#bkmk-tag-and-attr-del").onclick = function() {
+        tu.bkmk_tag_and_attr_del();
+    }
+}

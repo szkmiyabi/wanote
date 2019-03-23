@@ -8,6 +8,7 @@ window.onload = function() {
     listReplaceButton();
     targetBlankReplaceButton();
     showSearchPanelButton();
+    bkmkTagAndAttrDelButton();
 };
 
 function doLayout() {
