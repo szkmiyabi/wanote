@@ -168,4 +168,39 @@ module.exports = class textUtil {
         this.editor.session.replace(range, new_val);
     }
 
+    //label要素を挿入
+    insert_tag_label(content, attr) {
+        let range = this.editor.getSelectionRange();
+        let txt = this.editor.session.getTextRange();
+        let tmptxt = "";
+        let pt = new RegExp(/(<.+?>)(.+?)(<\/.+?>)/);
+        let tagflg = null;
+        let opentag = "";
+        let endtag = "";
+        tagflg = pt.test(txt);
+        if(tagflg) {
+            tmptxt = txt.match(pt)[2];
+            opentag = txt.match(pt)[1];
+            endtag = txt.match(pt)[3];
+            if(content !== "nil") {
+                tmptxt = content;
+            }
+        } else {
+            if(content === "nil") {
+                tmptxt = txt;
+            } else {
+                tmptxt = content;
+            }
+        }
+        if(attr === "nil") {
+            txt = `<label>` + tmptxt + `</label>`;
+        } else {
+            txt = `<label for="${attr}">` + tmptxt + `</label>`;
+        }
+        if(tagflg) {
+            txt = opentag + txt + endtag;
+        }
+        this.editor.session.replace(range, txt);
+    }
+
 }

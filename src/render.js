@@ -34,6 +34,12 @@ function initEditor() {
         var content = arg.content;
         tu.alt_attr_edit(type, content);
     });
+
+    ipcRenderer.on("insert-label-dialog-sender", (event, arg) => {
+        var content = arg.content;
+        var attr = arg.attr;
+        tu.insert_tag_label(content, attr);
+    });
 }
 
 function setEditorTheme(extension) {
@@ -110,5 +116,12 @@ function altAttrEditButton() {
     document.querySelector("#alt-attr-edit").onclick = function() {
         //ipcMainに処理を移譲
         ipcRenderer.send("alt-attr-edit", "dummy");
+    }
+}
+
+function insertLabelTagButton() {
+    document.querySelector("#insert-label-tag").onclick = function() {
+        //ipcMainに処理を移譲
+        ipcRenderer.send("insert-label-tag", "dummy");
     }
 }

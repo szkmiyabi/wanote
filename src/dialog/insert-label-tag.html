@@ -1,0 +1,27 @@
+<html lang="ja">
+<head><meta charset="utf-8">
+<style>
+body {font-family: sans-serif;}
+button {float:right; margin-left: 10px;}
+label.automax,input.automax {margin-bottom: 10px; width: 100%; display:block;}
+h4 {text-align: center;}
+</style>
+</head>
+<body>
+<h4>label要素挿入</h4>
+<label class="automax">要素の内容<input id="label-content" type="text" class="automax"></label>
+<label class="automax">for属性値<input id="for-attr-content" type="text" class="automax"></label>
+<button onclick="data_send();window.close()">Ok</button>
+<button onclick="window.close()">Cancel</button>
+<script type="text/javascript">
+function data_send() {
+    const { ipcRenderer } = require("electron");
+    var inp1 = document.getElementById("label-content").value;
+    var inp2 = document.getElementById("for-attr-content").value;
+    const data1 = (typeof inp1 === "undefined" || inp1 === "") ? "nil" : inp1;
+    const data2 = (typeof inp2 === "undefined" || inp2 === "") ? "nil" : inp2;
+    ipcRenderer.send("insert-label-dialog-response", {content: data1, attr: data2});
+}
+</script>
+</body>
+</html>

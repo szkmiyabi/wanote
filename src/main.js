@@ -91,6 +91,23 @@ app.on("ready", () => {
         mainWindow.webContents.send("alt-attr-dialog-sender", {type: type, content: content});
     });
 
+    ipcMain.on("insert-label-tag", (event, arg) => {
+        var dialogWindow = new BrowserWindow({
+            width: 360,
+            height: 190,
+            frame: false
+        });
+        dialogWindow.loadURL("file://" + __dirname + "/dialog/insert-label-tag.html");
+        dialogWindow.on("closed" , () => {
+            dialogWindow = null;
+        });
+    });
+    ipcMain.on("insert-label-dialog-response", (event, arg) => {
+        var content = arg.content;
+        var attr = arg.attr;
+        mainWindow.webContents.send("insert-label-dialog-sender", {content: content, attr: attr});
+    });
+
 });
 
 app.on("window-all-closed", () => {
