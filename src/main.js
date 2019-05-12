@@ -52,35 +52,8 @@ app.on("ready", () => {
             height: 160,
             frame: false
         });
-        const dialogHtml = '<html lang="ja"><head><meta charset="utf-8">\
-        <style>\
-        body {font-family: sans-serif;}\
-        button {float:right; margin-left: 10px;}\
-        label.automax,input.automax {margin-bottom: 10px; width: 100%; display:block;}\
-        h4 {text-align: center;}\
-        </style></head><body><h4>alt属性値の修正</h4>\
-        <label><input type="radio" name="opt_type" value="replace">置換</label>\
-        <label><input type="radio" name="opt_type" value="overwrite" checked="checked">後に追記</label><br>\
-        <label class="automax">変更内容<input id="alt-attr-content" type="text" class="automax"></label>\
-        <button onclick="data_send();window.close()">Ok</button>\
-        <button onclick="window.close()">Cancel</button>\
-        <script type="text/javascript">\
-        function data_send() {\
-            const { ipcRenderer } = require("electron");\
-            const data = document.getElementById("alt-attr-content").value;\
-            var type_data = "";\
-            var rds = document.getElementsByName("opt_type");\
-            for(var i=0; i<rds.length; i++) {\
-                if(rds[i].checked === true) {\
-                    type_data = rds[i].value;\
-                    break;\
-                }\
-            }\
-            ipcRenderer.send("alt-attr-dialog-response", {type: type_data, content: data});\
-        }\
-        </script>\
-        </body></html>';
-        dialogWindow.loadURL('data:text/html,' + dialogHtml);
+        //dialogWindow.loadURL('data:text/html,' + dialogHtml);
+        dialogWindow.loadURL("file://" + __dirname + "/dialog/alt-attr-edit.html");
         dialogWindow.on("closed" , () => {
             dialogWindow = null;
         });
