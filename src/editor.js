@@ -21,5 +21,5 @@ function doLayout() {
     var controlsHeight = getControlsHeight();
     var editorWidth = windowWidth;
     var editorHeight = windowHeight - controlsHeight;
-    editor_text.setAttribute("style", `width:${editorWidth}px; height:${editorHeight}px;`);
+    editor_text.setAttribute("style", `width:${editorWidth}px; height:${editorHeight}px;font-size:${defaultFontSize}px;`);
 }

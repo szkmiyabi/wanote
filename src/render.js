@@ -6,6 +6,7 @@ const { ipcRenderer } = require("electron");
 
 let editor = null;
 let tu = null;
+let defaultFontSize = 14;
 
 function getControlsHeight() {
     var controls = document.querySelector("#topbar");
@@ -23,7 +24,7 @@ function initEditor() {
     setEditorTheme("html");
     editor.getSession().setUseWrapMode(true);
     editor.setOptions({
-        fontSize: 14
+        fontSize: defaultFontSize
     });
 
     tu = new textUtil(editor, editor_text);
