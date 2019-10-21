@@ -14,6 +14,7 @@ window.onload = function() {
     insertLabelTagButton();
     insertReturnButton();
     saveButton();
+    openButton();
 };
 
 function doLayout() {

@@ -7,6 +7,7 @@ const { ipcRenderer } = require("electron");
 let editor = null;
 let tu = null;
 let defaultFontSize = 14;
+let currentPath = null;
 
 function getControlsHeight() {
     var controls = document.querySelector("#topbar");
@@ -131,6 +132,39 @@ function insertReturnButton() {
     document.querySelector("#insert-return").onclick = function() {
         tu.insert_return();
     }
+}
+
+function openButton() {
+    document.querySelector("#open").onclick = function() {
+        const win = BrowserWindow.getFocusedWindow();
+        dialog.showOpenDialog(
+            win,
+            {
+                properties: ["openFile"],
+                filters: [
+                    {
+                    name: "Documents",
+                    extensions: ["txt"]
+                    }
+                ]
+            },
+            fileNames => {
+                if (fileNames) {
+                    _readFile(fileNames[0]);
+                }
+            }
+        );
+    }
+}
+function _readFile(path) {
+    currentPath = path;
+    fs.readFile(path, (error, text) => {
+        if (error != null) {
+            alert("error : " + error);
+            return;
+        }
+        editor.setValue(text.toString(), -1);
+    });
 }
 
 function saveButton() {
