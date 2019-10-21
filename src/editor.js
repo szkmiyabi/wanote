@@ -13,6 +13,7 @@ window.onload = function() {
     altAttrEditButton();
     insertLabelTagButton();
     insertReturnButton();
+    saveButton();
 };
 
 function doLayout() {

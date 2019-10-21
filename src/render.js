@@ -1,5 +1,5 @@
 
-const { BrowserWindow } = require("electron").remote;
+const { BrowserWindow, dialog } = require("electron").remote;
 const fs = require("fs");
 const textUtil = require(__dirname + "/textUtil");
 const { ipcRenderer } = require("electron");
@@ -130,5 +130,33 @@ function insertLabelTagButton() {
 function insertReturnButton() {
     document.querySelector("#insert-return").onclick = function() {
         tu.insert_return();
+    }
+}
+
+function saveButton() {
+    document.querySelector("#save").onclick = function() {
+        let content = editor.getValue();
+        const win = BrowserWindow.getFocusedWindow();
+        dialog.showSaveDialog(
+            win,
+            {
+                properties: ["openFile"],
+                filters: [{
+                    name: "Documents",
+                    extensions: ["txt"]
+                }]
+            },
+            (fileName) => {
+                if(fileName) {
+                    fs.writeFile(fileName, content, (err) => {
+                        if(err) {
+                            alert("保存に失敗しました!");
+                        } else {
+                            alert("保存に成功しました!")
+                        }
+                    })
+                }
+            }
+        );
     }
 }
