@@ -169,28 +169,61 @@ function _readFile(path) {
 
 function saveButton() {
     document.querySelector("#save").onclick = function() {
-        let content = editor.getValue();
+        if(currentPath == null) {
+            _saveNewFile();
+            return;
+        }
         const win = BrowserWindow.getFocusedWindow();
-        dialog.showSaveDialog(
+        dialog.showMessageBox(
             win,
             {
-                properties: ["openFile"],
-                filters: [{
-                    name: "Documents",
-                    extensions: ["txt"]
-                }]
+                title: "ファイルの上書き保存を行います。",
+                type: "info",
+                buttons: ["OK", "Cancel"],
+                detail: "本当に保存しますか？"
             },
-            (fileName) => {
-                if(fileName) {
-                    fs.writeFile(fileName, content, (err) => {
-                        if(err) {
-                            alert("保存に失敗しました!");
-                        } else {
-                            alert("保存に成功しました!")
-                        }
-                    })
+            response => {
+                if (response === 0) {
+                    const data = editor.getValue();
+                    _writeFile(currentPath, data);
                 }
             }
         );
     }
+}
+function _saveNewFile() {
+    let content = editor.getValue();
+    const win = BrowserWindow.getFocusedWindow();
+    dialog.showSaveDialog(
+        win,
+        {
+            properties: ["openFile"],
+            filters: [{
+                name: "Documents",
+                extensions: ["txt"]
+            }]
+        },
+        (fileName) => {
+            if(fileName) {
+                fs.writeFile(fileName, content, (err) => {
+                    if(err) {
+                        alert("保存に失敗しました!");
+                    } else {
+                        alert("保存に成功しました!")
+                    }
+                });
+                currentPath = fileName;
+            }
+        }
+    );
+}
+
+function _writeFile(path, data) {
+    fs.writeFile(path, data, (err) => {
+        if(err) {
+            alert("保存に失敗しました!");
+        } else {
+            alert("保存に成功しました!")
+        }
+    });
 }
