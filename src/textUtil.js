@@ -194,4 +194,11 @@ module.exports = class textUtil {
         this.editor.session.replace(range, txt);
     }
 
+    //改行挿入
+    insert_return() {
+        let range = this.editor.getSelectionRange();
+        let txt = this.editor.session.getTextRange();
+        this.editor.session.replace(range, txt + "\n");
+    }
+
 }

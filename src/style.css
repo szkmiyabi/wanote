@@ -12,6 +12,9 @@ body {
     background-color: #f8f8f8;
     display: flex;
 }
+#topbar button i {
+    font-size: 16px;
+}
 
 .tooltip {
     position: relative;

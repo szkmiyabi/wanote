@@ -12,6 +12,7 @@ window.onload = function() {
     duplicateLineButton();
     altAttrEditButton();
     insertLabelTagButton();
+    insertReturnButton();
 };
 
 function doLayout() {

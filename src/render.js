@@ -126,3 +126,9 @@ function insertLabelTagButton() {
         ipcRenderer.send("insert-label-tag", "dummy");
     }
 }
+
+function insertReturnButton() {
+    document.querySelector("#insert-return").onclick = function() {
+        tu.insert_return();
+    }
+}
