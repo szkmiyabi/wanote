@@ -13,7 +13,7 @@ module.exports = class textUtil {
         let new_txt = "";
         let range = this.editor.getSelectionRange();
         let txt = this.editor.session.getTextRange(range);
-        let old_txt = this.editor.getValue();
+        let old_txt = this.editor.session.getTextRange();
         txt = txt.replace(/(\r\n|\n|\r){2}/, "\n");
         let start_pt = new RegExp(/(>>h\d\n)/m);
         let end_pt = new RegExp(/(\n>>\/h\d)/m);
@@ -28,7 +28,8 @@ module.exports = class textUtil {
             line = line.replace(/(<\/*p.*?>|<\/*div.*?>)/g, "");
             new_txt += `<${cr_tag}>${line}</${cr_tag}>` + "\n";
         }
-        this.editor.setValue(old_txt + "\n\n" + new_txt);
+        //this.editor.setValue(old_txt + "\n\n" + new_txt);
+        this.editor.session.replace(range, old_txt + "\n\n" + new_txt);
     }
 
     //要素挿入
