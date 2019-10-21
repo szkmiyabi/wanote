@@ -217,7 +217,6 @@ function _saveNewFile() {
         }
     );
 }
-
 function _writeFile(path, data) {
     fs.writeFile(path, data, (err) => {
         if(err) {
@@ -226,4 +225,49 @@ function _writeFile(path, data) {
             alert("保存に成功しました!")
         }
     });
+}
+
+function newFileButton() {
+    document.querySelector("#new").onclick = function() {
+        let content = editor.getValue();
+        if(currentPath == null && content !== "") {
+            const win = BrowserWindow.getFocusedWindow();
+            dialog.showMessageBox(
+                win,
+                {
+                    title: "確認",
+                    type: "info",
+                    buttons: ["OK", "Cancel"],
+                    detail: "内容が変更されています。保存しますか？"
+                },
+                response => {
+                    if (response === 0) {
+                        _saveNewFile();
+                        currentPath = null;
+                        editor.setValue("");
+                    }
+                }
+            );
+        } else if(currentPath != null) {
+            const win = BrowserWindow.getFocusedWindow();
+            dialog.showMessageBox(
+                win,
+                {
+                    title: "確認",
+                    type: "info",
+                    buttons: ["OK", "Cancel"],
+                    detail: "内容が変更されています。保存しますか？"
+                },
+                response => {
+                    if (response === 0) {
+                        const data = editor.getValue();
+                        _writeFile(currentPath, data);
+                        currentPath = null;
+                        editor.setValue("");
+                    }
+                }
+            );
+        }
+
+    }
 }

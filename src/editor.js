@@ -15,6 +15,7 @@ window.onload = function() {
     insertReturnButton();
     saveButton();
     openButton();
+    newFileButton();
 };
 
 function doLayout() {
