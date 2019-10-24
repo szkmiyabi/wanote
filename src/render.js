@@ -134,6 +134,12 @@ function insertReturnButton() {
     }
 }
 
+function svDecodeButton() {
+    document.querySelector("#sv-decode").onclick = function() {
+        tu.decode_sv_base();
+    }
+}
+
 function openButton() {
     document.querySelector("#open").onclick = function() {
         const win = BrowserWindow.getFocusedWindow();

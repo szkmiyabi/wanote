@@ -16,6 +16,7 @@ window.onload = function() {
     saveButton();
     openButton();
     newFileButton();
+    svDecodeButton();
 };
 
 function doLayout() {

@@ -4,8 +4,9 @@ module.exports = class textUtil {
     constructor(editor, editor_text) {
         this.editor = editor;
         this.editor_text = editor_text;
-
         this.target_blank_def_txt = "(別ウィンドウで開く)";
+        this.tab_sp = "<bkmk:tab>";
+        this.br_sp = "<bkmk:br>";
     }
 
     //見出しタグ自動変換
@@ -199,6 +200,28 @@ module.exports = class textUtil {
         let range = this.editor.getSelectionRange();
         let txt = this.editor.session.getTextRange();
         this.editor.session.replace(range, txt + "\n");
+    }
+
+    //判定ひな形をデコード
+    decode_sv_base() {
+        let range = this.editor.getSelectionRange();
+        let txt = this.editor.session.getTextRange();
+        let arr = new Array();
+        let sv = "";
+        let comment = "";
+        let description = "";
+        let srccode = "";
+        let tmp = txt.split(this.tab_sp);
+        if(tmp == null) return;
+        sv = tmp[1];
+        comment = this._br_decode(tmp[4]);
+        description = this._br_decode(tmp[5]);
+        srccode = this._br_decode(tmp[6]);
+        let body = `■判定: ${sv}\n\n■判定コメント:\n${comment}\n\n■対象ソースコード:\n${description}\n\n■修正ソースコード:\n${srccode}`;
+        this.editor.session.replace(range, body);
+    }
+    _br_decode(str) {
+        return str.replace(new RegExp(this.br_sp, "mg"), "\r\n");
     }
 
 }
