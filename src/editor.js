@@ -17,8 +17,11 @@ window.onload = function() {
     openButton();
     newFileButton();
     svDecodeButton();
-    doDefaultSnippet();
     snippetInsertButton();
+    snippetAddButton();
+    //レイアウト崩れバグ対策のため2回実行
+    doLayout();
+    doLayout();
 };
 
 function doLayout() {
@@ -31,17 +34,3 @@ function doLayout() {
     editor_text.setAttribute("style", `width:${editorWidth}px; height:${editorHeight}px;font-size:${defaultFontSize}px;`);
 }
 
-function doDefaultSnippet() {
-    var tar = document.getElementById("snippet-ddl");
-    var dics = [
-        "過剰指摘です。<bkmk:br>見直してください。<bkmk:br><bkmk:br>testtttt",
-        "3ブラウザ<bkmk:tab>IE,Firefox<bkmk:tab>Chrome",
-        "フォーカス視認できない"
-    ];
-    for(var d of dics) {
-        var el = document.createElement("option");
-        el.textContent = d;
-        tar.appendChild(el);
-    }
-    doLayout();
-}

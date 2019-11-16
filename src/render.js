@@ -167,6 +167,23 @@ function _snippet_decode(str) {
     return str.replace(new RegExp(br_sp, "mg"), "\r\n").replace(new RegExp(tab_sp, "mg"), "\t");
 }
 
+function snippetAddButton() {
+    document.querySelector("#snippet-add").onclick = function() {
+        let txt = editor.session.getTextRange();
+        txt = _snippet_encode(txt);
+        let crel = document.querySelector("#snippet-ddl");
+        let opt = document.createElement("option");
+        opt.textContent = txt;
+        crel.appendChild(opt);
+        //レイアウト崩れバグ対策のため2回実行
+        doLayout();
+        doLayout();
+    }
+}
+function _snippet_encode(str) {
+    return str.replace(new RegExp("(\r\n|\n|\r)", "mg"), br_sp).replace(new RegExp("\t", "mg"), tab_sp);
+}
+
 function openButton() {
     document.querySelector("#open").onclick = function() {
         const win = BrowserWindow.getFocusedWindow();
