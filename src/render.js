@@ -265,6 +265,43 @@ function _snippetComboInit(text) {
     doLayout();
 }
 
+function snippetSaveButton() {
+    document.querySelector("#snippet-save").onclick = function() {
+        let crel = document.querySelector("#snippet-ddl");
+        let opt = crel.getElementsByTagName("option");
+        let text = "";
+        for(var i=0; i<opt.length; i++) {
+            let cr = opt[i];
+            if(cr.textContent!=="") {
+                text += cr.textContent;
+            }
+            if(i !== (opt.length - 1)) text += "\r\n";
+        }
+        const win = BrowserWindow.getFocusedWindow();
+        dialog.showSaveDialog(
+            win,
+            {
+                properties: ["openFile"],
+                filters: [{
+                    name: "Documents",
+                    extensions: ["txt"]
+                }]
+            },
+            (fileName) => {
+                if(fileName) {
+                    fs.writeFile(fileName, text, (err) => {
+                        if(err) {
+                            alert("保存に失敗しました！");
+                        } else {
+                            alert("保存に成功しました！");
+                        }
+                    })
+                }
+            }
+        );
+    }
+}
+
 function openButton() {
     document.querySelector("#open").onclick = function() {
         const win = BrowserWindow.getFocusedWindow();

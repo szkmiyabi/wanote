@@ -21,6 +21,7 @@ window.onload = function() {
     snippetAddButton();
     snippetDelButton();
     snippetLoadButton();
+    snippetSaveButton();
     //レイアウト崩れバグ対策のため2回実行
     doLayout();
     doLayout();
