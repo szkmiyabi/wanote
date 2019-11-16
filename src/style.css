@@ -41,3 +41,8 @@ body {
 .tooltip:hover span {
     visibility: visible;
 }
+
+#snippet-ddl {
+    width: 80px;
+    display: inline-block;
+}

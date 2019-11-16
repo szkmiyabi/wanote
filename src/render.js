@@ -140,6 +140,26 @@ function svDecodeButton() {
     }
 }
 
+function snippetInsertButton() {
+    document.querySelector("#snippet-insert").onclick = function() {
+        let crtxt = "";
+        let crel = document.querySelector("#snippet-ddl");
+        let opts = crel.getElementsByTagName("option");
+        let idx = crel.selectedIndex;
+        let cnt = 0;
+        for(var op of opts) {
+            if(idx==cnt) {
+                crtxt = op.textContent;
+                break;
+            }
+            cnt++;
+        }
+        let range = editor.getSelectionRange();
+        let txt = editor.session.getTextRange();
+        editor.session.replace(range, txt + crtxt);
+    }
+}
+
 function openButton() {
     document.querySelector("#open").onclick = function() {
         const win = BrowserWindow.getFocusedWindow();
