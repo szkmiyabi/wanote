@@ -19,6 +19,7 @@ window.onload = function() {
     svDecodeButton();
     snippetInsertButton();
     snippetAddButton();
+    snippetDelButton();
     //レイアウト崩れバグ対策のため2回実行
     doLayout();
     doLayout();

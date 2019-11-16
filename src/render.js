@@ -184,6 +184,24 @@ function _snippet_encode(str) {
     return str.replace(new RegExp("(\r\n|\n|\r)", "mg"), br_sp).replace(new RegExp("\t", "mg"), tab_sp);
 }
 
+function snippetDelButton() {
+    document.querySelector("#snippet-del").onclick = function() {
+        let crel = document.querySelector("#snippet-ddl");
+        let opts = crel.getElementsByTagName("option");
+        let idx = crel.selectedIndex;
+        let cnt = 0;
+        for(var opt of opts) {
+            if(idx==cnt) {
+                crel.removeChild(opt);
+                break;
+            }
+            cnt++;
+        }
+        doLayout();
+        doLayout();
+    }
+}
+
 function openButton() {
     document.querySelector("#open").onclick = function() {
         const win = BrowserWindow.getFocusedWindow();
