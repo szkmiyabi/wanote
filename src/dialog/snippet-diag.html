@@ -1,0 +1,45 @@
+<html lang="ja">
+<head><meta charset="utf-8">
+<style>
+body {font-family: sans-serif;}
+#control-buttons {
+    display: flex;
+}
+#snippet-text {
+    width: 345px;
+    height: 100px;
+}
+#br-insert-btn {
+    margin-right: 40px;
+}
+h4 {text-align: center;}
+</style>
+</head>
+<body>
+<h4>スニペット追加</h4>
+<textarea id="snippet-text"></textarea>
+<div id="control-buttons">
+<button onclick="br_tag_insert()" id="br-insert-btn">改行タグ挿入</button>
+<button onclick="data_send();window.close()">Ok</button>
+<button onclick="window.close()">Cancel</button>
+</div>
+<script type="text/javascript">
+function data_send() {
+    const { ipcRenderer } = require("electron");
+    var data = document.getElementById("snippet-text").value;
+    ipcRenderer.send("snippet-add-response", {content: data});
+}
+function br_tag_insert() {
+    var ta = document.querySelector('#snippet-text');
+    var tmptxt = ta.value;
+    var len = tmptxt.length;
+    var pos = ta.selectionStart;
+    var before = tmptxt.substr(0, pos);
+    var after = tmptxt.substr(pos, len);
+    var word  = "<bkmk:br>";
+    var newtxt = before + word + after;
+    ta.value = newtxt;
+}
+</script>
+</body>
+</html>

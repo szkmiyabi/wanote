@@ -45,4 +45,5 @@ body {
 #snippet-ddl {
     width: 80px;
     display: inline-block;
+    margin-left: 25px;
 }

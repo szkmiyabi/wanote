@@ -45,6 +45,35 @@ function initEditor() {
         var attr = arg.attr;
         tu.insert_tag_label(content, attr);
     });
+
+    ipcRenderer.on("snippet-add-sender", (event, arg) => {
+        var content = arg.content;
+        const win = BrowserWindow.getFocusedWindow();
+        dialog.showMessageBox(
+            win,
+            {
+                title: "確認",
+                type: "info",
+                buttons: ["YES", "NO"],
+                detail: "Comboの値を一旦クリアしてから追加しますか？"
+            },
+            response => {
+                if(response === 0) {
+                    _snippetComboClear();
+                }
+                let crel = document.querySelector("#snippet-ddl");
+                let arr = content.split(/\n/);
+                for(var ai of arr) {
+                    if(ai==="") continue;
+                    var op = document.createElement("option");
+                    op.textContent = ai;
+                    crel.appendChild(op);
+                }
+                doLayout();
+                doLayout();
+            }
+        );
+    });
 }
 
 function setEditorTheme(extension) {
@@ -299,6 +328,13 @@ function snippetSaveButton() {
                 }
             }
         );
+    }
+}
+
+function snippetDiagButton() {
+    document.querySelector("#snippet-diag").onclick = function() {
+        //ipcMainに処理を移譲
+        ipcRenderer.send("snippet-add", "dummy");
     }
 }
 
