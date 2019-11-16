@@ -202,6 +202,69 @@ function snippetDelButton() {
     }
 }
 
+function snippetLoadButton() {
+    document.querySelector("#snippet-load").onclick = function() {
+        const win = BrowserWindow.getFocusedWindow();
+        dialog.showMessageBox(
+            win,
+            {
+                title: "確認",
+                type: "info",
+                buttons: ["YES", "NO"],
+                detail: "Comboの値を一旦クリアしてから追加しますか？"
+            },
+            response => {
+                if(response === 0) {
+                    _snippetComboClear();
+                }
+                _snippetFileLoad();
+            }
+        );
+    }
+}
+function _snippetComboClear() {
+    let crel = document.querySelector("#snippet-ddl");
+    while(crel.firstChild) {
+        crel.removeChild(crel.firstChild);
+    }
+    doLayout();
+    doLayout();
+}
+function _snippetFileLoad() {
+    const win = BrowserWindow.getFocusedWindow();
+    dialog.showOpenDialog(
+        win,
+        {
+            properties: ["openFile"],
+            filters: [
+                {
+                    name: "Documents",
+                    extensions: ["txt"]
+                }
+            ]
+        },
+        fileNames => {
+            if(fileNames) {
+                let text = fs.readFileSync(fileNames[0], "utf8");
+                if(text === "" || text === null) return;
+                _snippetComboInit(text);
+            }
+        }
+    );
+}
+function _snippetComboInit(text) {
+    let crel = document.querySelector("#snippet-ddl");
+    let arr = text.split(/\r\n/);
+    for(var ai of arr) {
+        if(ai==="") continue;
+        let op = document.createElement("option");
+        op.textContent = _snippet_encode(ai);
+        crel.appendChild(op);
+    }
+    doLayout();
+    doLayout();
+}
+
 function openButton() {
     document.querySelector("#open").onclick = function() {
         const win = BrowserWindow.getFocusedWindow();
