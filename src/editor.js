@@ -34,8 +34,8 @@ function doLayout() {
 function doDefaultSnippet() {
     var tar = document.getElementById("snippet-ddl");
     var dics = [
-        "過剰指摘です。",
-        "3ブラウザ",
+        "過剰指摘です。<bkmk:br>見直してください。<bkmk:br><bkmk:br>testtttt",
+        "3ブラウザ<bkmk:tab>IE,Firefox<bkmk:tab>Chrome",
         "フォーカス視認できない"
     ];
     for(var d of dics) {

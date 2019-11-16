@@ -4,6 +4,9 @@ const fs = require("fs");
 const textUtil = require(__dirname + "/textUtil");
 const { ipcRenderer } = require("electron");
 
+const tab_sp = "<bkmk:tab>";
+const br_sp = "<bkmk:br>";
+
 let editor = null;
 let tu = null;
 let defaultFontSize = 14;
@@ -156,8 +159,12 @@ function snippetInsertButton() {
         }
         let range = editor.getSelectionRange();
         let txt = editor.session.getTextRange();
+        crtxt = _snippet_decode(crtxt);
         editor.session.replace(range, txt + crtxt);
     }
+}
+function _snippet_decode(str) {
+    return str.replace(new RegExp(br_sp, "mg"), "\r\n").replace(new RegExp(tab_sp, "mg"), "\t");
 }
 
 function openButton() {
