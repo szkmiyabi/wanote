@@ -17,6 +17,7 @@ window.onload = function() {
     openButton();
     newFileButton();
     svDecodeButton();
+    svEncodeButton();
     snippetInsertButton();
     snippetAddButton();
     snippetDelButton();

@@ -242,4 +242,29 @@ module.exports = class textUtil {
         return str.replace(new RegExp(this.br_sp, "mg"), "\r\n");
     }
 
+    //判定ひな形にエンコード
+    encode_sv_base() {
+        try {
+            let range = this.editor.getSelectionRange();
+            let txt = this.editor.session.getTextRange();
+            let old_txt = this.editor.session.getTextRange();
+            let sv = txt.split(/■判定: */)[1].trim().split(/■判定コメント:/)[0].trim();
+            sv = this._br_encode(sv);
+            let comment = txt.split(/■判定コメント:/)[1].trim().split(/■対象ソースコード:/)[0].trim();
+            comment = this._br_encode(comment);
+            let description = txt.split(/■対象ソースコード:/)[1].trim().split(/■修正ソースコード:/)[0].trim();
+            description = this._br_encode(description);
+            let srccode = txt.split(/■修正ソースコード:/)[1].trim();
+            srccode = this._br_encode(srccode);
+            let new_txt = txt = "which" + this.tab_sp + sv + this.tab_sp + "no" + this.tab_sp + "who" + this.tab_sp;
+            new_txt += comment + this.tab_sp + description + this.tab_sp + srccode;
+            this.editor.session.replace(range, old_txt + "\n\n" + new_txt);
+        } catch(e) {
+            alert("選択範囲に問題があります。確認してください。\n"+e.toString());
+        }
+    }
+    _br_encode(str) {
+        return str.replace(new RegExp("\r\n", "mg"), this.br_sp);
+    }
+
 }
