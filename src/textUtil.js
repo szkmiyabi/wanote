@@ -26,10 +26,28 @@ module.exports = class textUtil {
         for(var i=0; i<datas.length; i++) {
             let line = datas[i];
             line = line.trim();
-            line = line.replace(/(<\/*p.*?>|<\/*div.*?>)/g, "");
-            new_txt += `<${cr_tag}>${line}</${cr_tag}>` + "\n";
+            new_txt += this.replace_element_only(line, cr_tag);
         }
         this.editor.session.replace(range, old_txt + "\n\n" + new_txt);
+    }
+
+    //要素名だけを置換
+    replace_element_only(str, cr_tag){
+        if(!this._is_tag_code(str) || this._is_inline(str)) {
+            return `<${cr_tag}>${str}</${cr_tag}>` + "\n";
+        } else {
+            let pt = new RegExp(/(^<)([a-zA-Z]+?)( *)(.*?)(>)(.+)(<\/[a-zA-Z]+>)/);
+            let mt = str.match(pt);
+            return `<${cr_tag}${mt[3]}${mt[4]}>${mt[6]}</${cr_tag}>` + "\n";
+        }
+    }
+    _is_tag_code(str) {
+        if(new RegExp(/^</).test(str)) return true;
+        else return false;
+    }
+    _is_inline(str) {
+        if(new RegExp(/(^<)(span|strong|em)(.*)/).test(str)) return true;
+        else return false;
     }
 
     //要素挿入
