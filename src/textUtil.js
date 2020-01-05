@@ -239,7 +239,7 @@ module.exports = class textUtil {
         this.editor.session.replace(range, body);
     }
     _br_decode(str) {
-        return str.replace(new RegExp(this.br_sp, "mg"), "\r\n");
+        return str.replace(new RegExp(this.br_sp, "mg"), "\n");
     }
 
     //判定ひな形にエンコード
@@ -264,7 +264,7 @@ module.exports = class textUtil {
         }
     }
     _br_encode(str) {
-        return str.replace(new RegExp("\r\n", "mg"), this.br_sp);
+        return str.replace(/\r/mg, "").replace(/\n/mg, this.br_sp);
     }
 
 }
