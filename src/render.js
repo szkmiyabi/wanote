@@ -369,22 +369,8 @@ function saveButton() {
             _saveNewFile();
             return;
         }
-        const win = BrowserWindow.getFocusedWindow();
-        dialog.showMessageBox(
-            win,
-            {
-                title: "ファイルの上書き保存を行います。",
-                type: "info",
-                buttons: ["OK", "Cancel"],
-                detail: "本当に保存しますか？"
-            },
-            response => {
-                if (response === 0) {
-                    const data = editor.getValue();
-                    _writeFile(currentPath, data);
-                }
-            }
-        );
+        const data = editor.getValue();
+        _writeFile(currentPath, data);
     }
 }
 function _saveNewFile() {
@@ -425,45 +411,7 @@ function _writeFile(path, data) {
 
 function newFileButton() {
     document.querySelector("#new").onclick = function() {
-        let content = editor.getValue();
-        if(currentPath == null && content !== "") {
-            const win = BrowserWindow.getFocusedWindow();
-            dialog.showMessageBox(
-                win,
-                {
-                    title: "確認",
-                    type: "info",
-                    buttons: ["OK", "Cancel"],
-                    detail: "内容が変更されています。保存しますか？"
-                },
-                response => {
-                    if (response === 0) {
-                        _saveNewFile();
-                        currentPath = null;
-                        editor.setValue("");
-                    }
-                }
-            );
-        } else if(currentPath != null) {
-            const win = BrowserWindow.getFocusedWindow();
-            dialog.showMessageBox(
-                win,
-                {
-                    title: "確認",
-                    type: "info",
-                    buttons: ["OK", "Cancel"],
-                    detail: "内容が変更されています。保存しますか？"
-                },
-                response => {
-                    if (response === 0) {
-                        const data = editor.getValue();
-                        _writeFile(currentPath, data);
-                        currentPath = null;
-                        editor.setValue("");
-                    }
-                }
-            );
-        }
-
+        currentPath = null;
+        editor.setValue("");
     }
 }

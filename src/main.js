@@ -39,7 +39,7 @@ function createWindow() {
     //mainWindow.webContents.toggleDevTools();
     Menu.setApplicationMenu(null);
     mainWindow.on("closed", () => {
-         mainWindow = null;
+        mainWindow = null;
     });
 }
 
