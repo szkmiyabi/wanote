@@ -98,7 +98,7 @@ function headingReplaceButton() {
 
 function strongInsertButton() {
     document.querySelector("#strong-insert").onclick = function() {
-        tu.insert_tag("strong");
+        tu.insert_tag("strong", "");
     };
 }
 
@@ -186,6 +186,28 @@ function snippetInsertButton() {
 }
 function _snippet_decode(str) {
     return str.replace(new RegExp(br_sp, "mg"), "\r\n").replace(new RegExp(tab_sp, "mg"), "\t");
+}
+
+function anyTagInsertButton() {
+    document.querySelector("#any-tag-insert").onclick = function() {
+        let crtxt = "";
+        let crel = document.querySelector("#snippet-ddl");
+        let opts = crel.getElementsByTagName("option");
+        let idx = crel.selectedIndex;
+        let cnt = 0;
+        for(var op of opts) {
+            if(idx==cnt) {
+                crtxt = op.textContent;
+                break;
+            }
+            cnt++;
+        }
+        let pt = new RegExp(/([a-zA-Z0-9]+)(:*)(.*)/);
+        if(!pt.test(crtxt)) return;
+        let tag = crtxt.match(pt)[1];
+        let attr = crtxt.match(pt)[3];
+        tu.insert_tag(tag, attr);
+    }
 }
 
 function snippetAddButton() {

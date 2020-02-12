@@ -51,11 +51,12 @@ module.exports = class textUtil {
     }
 
     //要素挿入
-    insert_tag(tag_name) {
+    insert_tag(tag_name, attrs = "") {
         tag_name = tag_name.toLowerCase();
+        if(attrs !== "") attrs = " " + attrs;
         let range = this.editor.getSelectionRange();
         let txt = this.editor.session.getTextRange();
-        let new_val = `<${tag_name}>${txt}</${tag_name}>`;
+        let new_val = `<${tag_name}${attrs}>${txt}</${tag_name}>`;
         this.editor.session.replace(range, new_val);
     }
 

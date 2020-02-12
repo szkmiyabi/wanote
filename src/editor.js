@@ -19,6 +19,7 @@ window.onload = function() {
     svDecodeButton();
     svEncodeButton();
     snippetInsertButton();
+    anyTagInsertButton();
     snippetAddButton();
     snippetDelButton();
     snippetLoadButton();
