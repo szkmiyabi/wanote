@@ -164,6 +164,12 @@ function svEncodeButton() {
     }
 }
 
+function svDecodePlusButton() {
+    document.querySelector("#sv-decode-plus").onclick = function() {
+        tu.decode_sv_base_plus();
+    }
+}
+
 function snippetInsertButton() {
     document.querySelector("#snippet-insert").onclick = function() {
         let crtxt = "";
@@ -435,5 +441,32 @@ function newFileButton() {
     document.querySelector("#new").onclick = function() {
         currentPath = null;
         editor.setValue("");
+    }
+}
+
+function numberingInsertButton() {
+    document.querySelector("#numbering-insert").onclick = function() {
+        let crtxt = "";
+        let crel = document.querySelector("#numbering-ddl");
+        let opts = crel.getElementsByTagName("option");
+        let idx = crel.selectedIndex;
+        let cnt = 0;
+        for(var op of opts) {
+            if(idx==cnt) {
+                crtxt = op.textContent;
+                break;
+            }
+            cnt++;
+        }
+        let range = editor.getSelectionRange();
+        let txt = editor.session.getTextRange();
+        let pt = new RegExp(/([0-9]+)(\.*)/);
+        if(pt.test(txt)) {
+            let mt = txt.match(pt);
+            crtxt = txt.replace(pt, mt[1] + "-" + crtxt + ".");
+        } else {
+            crtxt = crtxt += ".";
+        }
+        editor.session.replace(range, crtxt);
     }
 }

@@ -7,6 +7,8 @@ module.exports = class textUtil {
         this.target_blank_def_txt = "(別ウィンドウで開く)";
         this.tab_sp = "<bkmk:tab>";
         this.br_sp = "<bkmk:br>";
+        this.data_tab_sp = "<bkmk:data:tab>";
+        this.data_br_sp = "<bkmk:data:br>";
     }
 
     //見出しタグ自動変換
@@ -241,6 +243,35 @@ module.exports = class textUtil {
     }
     _br_decode(str) {
         return str.replace(new RegExp(this.br_sp, "mg"), "\n");
+    }
+
+    //判定ひな形をデコード（LibraPlus）
+    decode_sv_base_plus() {
+        let range = this.editor.getSelectionRange();
+        let txt = this.editor.session.getTextRange();
+        let body = "■■開始■■\n\n";
+        body += "";
+        let pr_arr = txt.split(this.data_br_sp);
+        if(pr_arr == null) return;
+        for(var i=0; i<pr_arr.length; i++) {
+            let ch_arr = pr_arr[i].split(this.tab_sp);
+            if(ch_arr == null) return;
+            let nm = ch_arr[0];
+            let title = ch_arr[1];
+            let sv = ch_arr[2];
+            let sv_body = ch_arr[3];
+            sv_body = sv_body.replace(/<bkmk:data:rw[0-9]+:cn[0-9]+:start>/, "");
+            sv_body = sv_body.replace(/<bkmk:data:rw[0-9]+:cn[0-9]+:end>/, "");
+            let tmp = sv_body.split(this.data_tab_sp);
+            if(tmp == null) return;
+            let comment = this._br_decode(tmp[0]);
+            let description = this._br_decode(tmp[1]);
+            let srccode = this._br_decode(tmp[2]);
+            body += `■番号: ${nm}\n\n■検査項目: ${title}\n\n■判定: ${sv}\n\n■判定コメント:\n${comment}\n\n■対象ソースコード:\n${description}\n\n■修正ソースコード:\n${srccode}`;
+            if(i != (pr_arr.length - 1)) body += "\n\n■■■■■■\n\n";
+        }
+        body += "\n\n■■終了■■";
+        this.editor.session.replace(range, body);
     }
 
     //判定ひな形にエンコード

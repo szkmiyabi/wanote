@@ -45,5 +45,11 @@ body {
 #snippet-ddl {
     width: 80px;
     display: inline-block;
-    margin-left: 25px;
+    margin-left: 15px;
+}
+
+#numbering-ddl {
+    width: 80px;
+    display: inline-block;
+    width: 3em;
 }
