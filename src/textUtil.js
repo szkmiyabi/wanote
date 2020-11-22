@@ -299,4 +299,39 @@ module.exports = class textUtil {
         return str.replace(/\r/mg, "").replace(/\n/mg, this.br_sp);
     }
 
+    //判定ひな形にエンコード（LibraPlus）
+    encode_sv_base_plus() {
+        try {
+            let range = this.editor.getSelectionRange();
+            let txt = this.editor.session.getTextRange();
+            let old_txt = this.editor.session.getTextRange();
+            txt = txt.replace(/■■開始■■\n\n/, "");
+            txt = txt.replace(/\n\n■■終了■■/, "");
+            let new_txt = "";
+            let pr_arr = txt.split(/\n\n■■■■■■\n\n/);
+            if(pr_arr == null) return;
+            for(var i=0; i<pr_arr.length; i++) {
+                let ch_txt = pr_arr[i];
+                let nm = ch_txt.split(/■番号: */)[1].trim().split(/■検査項目:/)[0].trim();
+                nm = this._br_encode(nm);
+                let title = ch_txt.split(/■検査項目: */)[1].trim().split(/■判定:/)[0].trim();
+                title = this._br_encode(title);
+                let sv = ch_txt.split(/■判定: */)[1].trim().split(/■判定コメント:/)[0].trim();
+                sv = this._br_encode(sv);
+                let comment = ch_txt.split(/■判定コメント: */)[1].trim().split(/■対象ソースコード:/)[0].trim();
+                comment = this._br_encode(comment);
+                let description = ch_txt.split(/■対象ソースコード: */)[1].trim().split(/■修正ソースコード:/)[0].trim();
+                description = this._br_encode(description);
+                let srccode = ch_txt.split(/■修正ソースコード:/)[1].trim();
+                srccode = this._br_encode(srccode);
+                new_txt += `${nm}${this.tab_sp}${title}${this.tab_sp}${sv}${this.tab_sp}<bkmk:data:rw${i}:cn${i+1}:start>${comment}${this.data_tab_sp}${description}${this.data_tab_sp}${srccode}<bkmk:data:rw${i}:cn${i+1}:end>${this.tab_sp}`;
+                if(i != (pr_arr.length - 1)) new_txt += this.data_br_sp;
+            }
+            this.editor.session.replace(range, old_txt + "\n\n" + new_txt);
+
+        } catch(e) {
+            alert("選択範囲に問題があります。確認してください。\n"+e.toString());
+        }
+    }
+
 }

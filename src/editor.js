@@ -27,8 +27,8 @@ window.onload = function() {
     snippetDiagButton();
     numberingInsertButton();
     doNumberingDropdown();
-
     svDecodePlusButton();
+    svEncodePlusButton();
     //レイアウト崩れバグ対策のため2回実行
     doLayout();
     doLayout();

@@ -170,6 +170,12 @@ function svDecodePlusButton() {
     }
 }
 
+function svEncodePlusButton() {
+    document.querySelector("#sv-encode-plus").onclick = function() {
+        tu.encode_sv_base_plus();
+    }
+}
+
 function snippetInsertButton() {
     document.querySelector("#snippet-insert").onclick = function() {
         let crtxt = "";
