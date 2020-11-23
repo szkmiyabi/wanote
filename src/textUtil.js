@@ -259,14 +259,20 @@ module.exports = class textUtil {
             let nm = ch_arr[0];
             let title = ch_arr[1];
             let sv = ch_arr[2];
+            //複数検査項目に対し検査入力フォーム群が1セットだけの場合はエラー処理をする
+            let comment = "";
+            let description = "";
+            let srccode = "";
+            let tmp = null;
             let sv_body = ch_arr[3];
-            sv_body = sv_body.replace(/<bkmk:data:rw[0-9]+:cn[0-9]+:start>/, "");
-            sv_body = sv_body.replace(/<bkmk:data:rw[0-9]+:cn[0-9]+:end>/, "");
-            let tmp = sv_body.split(this.data_tab_sp);
-            if(tmp == null) return;
-            let comment = this._br_decode(tmp[0]);
-            let description = this._br_decode(tmp[1]);
-            let srccode = this._br_decode(tmp[2]);
+            try {sv_body = sv_body.replace(/<bkmk:data:rw[0-9]+:cn[0-9]+:start>/, "");}catch(e){};
+            try {sv_body = sv_body.replace(/<bkmk:data:rw[0-9]+:cn[0-9]+:end>/, "");}catch(e){};
+            try {tmp = sv_body.split(this.data_tab_sp);}catch(e){};
+            if(tmp != null) {
+                comment = this._br_decode(tmp[0]);
+                description = this._br_decode(tmp[1]);
+                srccode = this._br_decode(tmp[2]);
+            }
             body += `■番号: ${nm}\n\n■検査項目: ${title}\n\n■判定: ${sv}\n\n■判定コメント:\n${comment}\n\n■対象ソースコード:\n${description}\n\n■修正ソースコード:\n${srccode}`;
             if(i != (pr_arr.length - 1)) body += "\n\n■■■■■■\n\n";
         }
