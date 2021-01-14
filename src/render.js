@@ -146,6 +146,12 @@ function insertLabelTagButton() {
     }
 }
 
+function eraseIndentButton() {
+    document.querySelector("#erase-indent").onclick = function() {
+        tu.erase_indent();
+    }
+}
+
 function insertReturnButton() {
     document.querySelector("#insert-return").onclick = function() {
         tu.insert_return();

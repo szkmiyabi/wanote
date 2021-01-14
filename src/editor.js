@@ -29,6 +29,7 @@ window.onload = function() {
     doNumberingDropdown();
     svDecodePlusButton();
     svEncodePlusButton();
+    eraseIndentButton();
     //レイアウト崩れバグ対策のため2回実行
     doLayout();
     doLayout();

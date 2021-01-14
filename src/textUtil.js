@@ -223,6 +223,15 @@ module.exports = class textUtil {
         this.editor.session.replace(range, txt + "\n");
     }
 
+    //インデント除去
+    erase_indent() {
+        let range = this.editor.getSelectionRange();
+        let txt = this.editor.session.getTextRange();
+        txt = txt.replace(/^\t{0,}/mg, " ");
+        txt = txt.replace(/^    {0,}/mg, " ");
+        this.editor.session.replace(range, txt);
+    }
+
     //判定ひな形をデコード
     decode_sv_base() {
         let range = this.editor.getSelectionRange();
