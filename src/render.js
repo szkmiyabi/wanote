@@ -9,7 +9,7 @@ const br_sp = "<bkmk:br>";
 
 let editor = null;
 let tu = null;
-let defaultFontSize = 14;
+let defaultFontSize = 16;
 let currentPath = null;
 
 function getControlsHeight() {
@@ -24,7 +24,7 @@ function getControlsHeight() {
 function initEditor() {
     let editor_text = document.querySelector("#editor_text");
     editor = ace.edit("editor_text");
-    editor.setTheme("ace/theme/dracula");
+    editor.setTheme("ace/theme/cobalt");
     setEditorTheme("html");
     editor.getSession().setUseWrapMode(true);
     editor.setOptions({
