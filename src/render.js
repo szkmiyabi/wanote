@@ -152,9 +152,21 @@ function eraseIndentButton() {
     }
 }
 
+function eraseTagButton() {
+    document.querySelector("#erase-tag").onclick = function() {
+        tu.erase_tag();
+    }
+}
+
 function insertReturnButton() {
     document.querySelector("#insert-return").onclick = function() {
         tu.insert_return();
+    }
+}
+
+function insertSvBaseButton() {
+    document.querySelector("#sv-base").onclick = function() {
+        tu.insert_sv_base();
     }
 }
 

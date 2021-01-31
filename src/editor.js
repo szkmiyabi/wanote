@@ -27,9 +27,12 @@ window.onload = function() {
     snippetDiagButton();
     numberingInsertButton();
     doNumberingDropdown();
+    doSnippetDropdown();
     svDecodePlusButton();
     svEncodePlusButton();
     eraseIndentButton();
+    eraseTagButton();
+    insertSvBaseButton();
     //レイアウト崩れバグ対策のため2回実行
     doLayout();
     doLayout();
@@ -53,6 +56,19 @@ function doNumberingDropdown() {
         var el = document.createElement("option");
         el.value = i;
         el.textContent = i;
+        ddl.appendChild(el);
+    }
+}
+
+function doSnippetDropdown() {
+    var ddl = document.querySelector("#snippet-ddl");
+    var opts = [
+        "p","span","ul","li","dl","dt","dd","h2","h3","h4","h5","em","div","nav",
+    ];
+    for(var i=0; i<opts.length; i++) {
+        var line = opts[i];
+        var el = document.createElement("option");
+        el.textContent = line;
         ddl.appendChild(el);
     }
 }

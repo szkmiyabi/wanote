@@ -30,7 +30,7 @@ module.exports = class textUtil {
             line = line.trim();
             new_txt += this.replace_element_only(line, cr_tag);
         }
-        this.editor.session.replace(range, old_txt + "\n\n" + new_txt);
+        this.editor.session.replace(range, new_txt);
     }
 
     //要素名だけを置換
@@ -97,7 +97,7 @@ module.exports = class textUtil {
         } else if(cr_tag === "ol") {
             new_txt = "<ol>\n" + new_txt + "</ol>";
         }
-        this.editor.session.replace(range, old_txt + "\n\n" + new_txt);
+        this.editor.session.replace(range, new_txt);
     }
 
     //別ウィンドウの明示自動修正
@@ -227,8 +227,25 @@ module.exports = class textUtil {
     erase_indent() {
         let range = this.editor.getSelectionRange();
         let txt = this.editor.session.getTextRange();
-        txt = txt.replace(/^\t{0,}/mg, " ");
-        txt = txt.replace(/^    {0,}/mg, " ");
+        txt = txt.replace(/^\t{0,}/mg, "");
+        //txt = txt.replace(/^    {0,}/mg, "");
+        txt = txt.replace(/^ {0,}/mg, "");
+        this.editor.session.replace(range, txt);
+    }
+
+    //判定ひな形挿入
+    insert_sv_base() {
+        let range = this.editor.getSelectionRange();
+        let txt =  `■判定: いいえ\n\n\n■判定コメント:\n\n\n■対象ソースコード:\n\n\n■修正ソースコード:\n\n\n`;
+        this.editor.session.replace(range, txt); 
+    }
+
+    //タグ除去
+    erase_tag() {
+        let range = this.editor.getSelectionRange();
+        let txt = this.editor.session.getTextRange();
+        let pt = new RegExp(/<\/*.+? *\/*>/mg);
+        txt = txt.replace(pt, "");
         this.editor.session.replace(range, txt);
     }
 
