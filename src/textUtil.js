@@ -228,8 +228,8 @@ module.exports = class textUtil {
         let range = this.editor.getSelectionRange();
         let txt = this.editor.session.getTextRange();
         txt = txt.replace(/^\t{0,}/mg, "");
-        //txt = txt.replace(/^    {0,}/mg, "");
         txt = txt.replace(/^ {0,}/mg, "");
+        txt = txt.replace(/^　{0,}/mg, "");
         this.editor.session.replace(range, txt);
     }
 
