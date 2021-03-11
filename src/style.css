@@ -45,11 +45,21 @@ body {
 #snippet-ddl {
     width: 80px;
     display: inline-block;
-    margin-left: 15px;
+}
+
+#bracket-ddl {
+    width: 80px;
+    display: inline-block;
 }
 
 #numbering-ddl {
     width: 80px;
     display: inline-block;
     width: 3em;
+}
+
+.ddl {
+    font-size: 90%;
+    padding: 0 2px 0 2px;
+    white-space: nowrap;
 }

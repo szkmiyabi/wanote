@@ -22,6 +22,13 @@ const rmenu = Menu.buildFromTemplate([
         role: "selectall"
     },
     {
+        label: "検索パネルを表示",
+        click: () => {
+            let crWindow = BrowserWindow.getFocusedWindow();
+            crWindow.webContents.send('disp-search-panel', "dummy");
+        }
+    },
+    {
         type: "separator"
     },
     {
@@ -45,41 +52,6 @@ function createWindow() {
 
 app.on("ready", () => {
     createWindow();
-
-    ipcMain.on("alt-attr-edit", (event, arg) => {
-        var dialogWindow = new BrowserWindow({
-            width: 360,
-            height: 160,
-            frame: false
-        });
-        //dialogWindow.loadURL('data:text/html,' + dialogHtml);
-        dialogWindow.loadURL("file://" + __dirname + "/dialog/alt-attr-edit.html");
-        dialogWindow.on("closed" , () => {
-            dialogWindow = null;
-        });
-    });
-    ipcMain.on("alt-attr-dialog-response", (event, arg) => {
-        var type = arg.type;
-        var content = arg.content;
-        mainWindow.webContents.send("alt-attr-dialog-sender", {type: type, content: content});
-    });
-
-    ipcMain.on("insert-label-tag", (event, arg) => {
-        var dialogWindow = new BrowserWindow({
-            width: 360,
-            height: 190,
-            frame: false
-        });
-        dialogWindow.loadURL("file://" + __dirname + "/dialog/insert-label-tag.html");
-        dialogWindow.on("closed" , () => {
-            dialogWindow = null;
-        });
-    });
-    ipcMain.on("insert-label-dialog-response", (event, arg) => {
-        var content = arg.content;
-        var attr = arg.attr;
-        mainWindow.webContents.send("insert-label-dialog-sender", {content: content, attr: attr});
-    });
 
     ipcMain.on("snippet-add", (event, arg) => {
         var dialogWindow = new BrowserWindow({

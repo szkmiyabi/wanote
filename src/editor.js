@@ -4,14 +4,9 @@ window.onload = function() {
     doLayout();
     initEditor();
     headingReplaceButton();
-    strongInsertButton();
     listReplaceButton();
-    targetBlankReplaceButton();
-    showSearchPanelButton();
-    bkmkTagAndAttrDelButton();
+    //showSearchPanelButton();
     duplicateLineButton();
-    altAttrEditButton();
-    insertLabelTagButton();
     insertReturnButton();
     saveButton();
     openButton();
@@ -28,11 +23,13 @@ window.onload = function() {
     numberingInsertButton();
     doNumberingDropdown();
     doSnippetDropdown();
+    doBracketDropdown();
     svDecodePlusButton();
     svEncodePlusButton();
     eraseIndentButton();
     eraseTagButton();
     insertSvBaseButton();
+    bracketInsertButton();
     //レイアウト崩れバグ対策のため2回実行
     doLayout();
     doLayout();
@@ -63,7 +60,32 @@ function doNumberingDropdown() {
 function doSnippetDropdown() {
     var ddl = document.querySelector("#snippet-ddl");
     var opts = [
-        "p","span","ul","li","dl","dt","dd","h2","h3","h4","h5","em","div","nav",
+        "p","span","strong", "em","ul","li","dl","dt","dd","h2","h3","h4","h5","h6","h1","ol","div","nav",
+    ];
+    for(var i=0; i<opts.length; i++) {
+        var line = opts[i];
+        var el = document.createElement("option");
+        el.textContent = line;
+        ddl.appendChild(el);
+    }
+}
+
+function doBracketDropdown() {
+    var ddl = document.querySelector("#bracket-ddl");
+    var opts = [
+        '「 」',
+        '『 』',
+        '（ ）',
+        '( )',
+        '［ ］',
+        '[ ]',
+        '【 】',
+        '＜ ＞',
+        '< >',
+        '≪ ≫',
+        '" "',
+        '\' \'',
+        '>> >>/'
     ];
     for(var i=0; i<opts.length; i++) {
         var line = opts[i];

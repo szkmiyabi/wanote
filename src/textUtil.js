@@ -4,7 +4,7 @@ module.exports = class textUtil {
     constructor(editor, editor_text) {
         this.editor = editor;
         this.editor_text = editor_text;
-        this.target_blank_def_txt = "(別ウィンドウで開く)";
+        this.target_blank_def_txt = "(別ウィンドウで開く)"; //未使用
         this.tab_sp = "<bkmk:tab>";
         this.br_sp = "<bkmk:br>";
         this.data_tab_sp = "<bkmk:data:tab>";
@@ -100,7 +100,7 @@ module.exports = class textUtil {
         this.editor.session.replace(range, new_txt);
     }
 
-    //別ウィンドウの明示自動修正
+    //別ウィンドウの明示自動修正(未使用)
     target_blank_replace() {
         let new_txt = "";
         let range = this.editor.getSelectionRange();
@@ -140,7 +140,7 @@ module.exports = class textUtil {
         return new RegExp(/(alt=")(.*?)(")/);
     }
 
-    //minbrowserシュミレーションで付与されたspan要素とstyle属性の削除
+    //minbrowserシュミレーションで付与されたspan要素とstyle属性の削除(未使用)
     bkmk_tag_and_attr_del() {
         let range = this.editor.getSelectionRange();
         let txt = this.editor.session.getTextRange();
@@ -160,7 +160,7 @@ module.exports = class textUtil {
         this.editor.session.replace(range, txt);
     }
 
-    //alt属性値を修正
+    //alt属性値を修正(未使用)
     alt_attr_edit(type, content) {
         let range = this.editor.getSelectionRange();
         let txt = this.editor.session.getTextRange();
@@ -181,7 +181,7 @@ module.exports = class textUtil {
         this.editor.session.replace(range, new_val);
     }
 
-    //label要素を挿入
+    //label要素を挿入(未使用)
     insert_tag_label(content, attr) {
         let range = this.editor.getSelectionRange();
         let txt = this.editor.session.getTextRange();
@@ -364,6 +364,17 @@ module.exports = class textUtil {
         } catch(e) {
             alert("選択範囲に問題があります。確認してください。\n"+e.toString());
         }
+    }
+
+    //かっこで囲む
+    insert_any_bracket(bracket_str) {
+        let range = this.editor.getSelectionRange();
+        let txt = this.editor.session.getTextRange();
+        let barr = bracket_str.split(" ");
+        if(barr.length < 2) return;
+        let bstart = barr[0];
+        let bend = barr[1];
+        this.editor.session.replace(range, bstart + txt + bend);
     }
 
 }

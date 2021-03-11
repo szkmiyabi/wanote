@@ -33,19 +33,7 @@ function initEditor() {
 
     tu = new textUtil(editor, editor_text);
 
-    //ipcMainからのイベント処理
-    ipcRenderer.on("alt-attr-dialog-sender", (event, arg) => {
-        var type = arg.type;
-        var content = arg.content;
-        tu.alt_attr_edit(type, content);
-    });
-
-    ipcRenderer.on("insert-label-dialog-sender", (event, arg) => {
-        var content = arg.content;
-        var attr = arg.attr;
-        tu.insert_tag_label(content, attr);
-    });
-
+    //ipcMainからのイベント処理(文言追加)
     ipcRenderer.on("snippet-add-sender", (event, arg) => {
         var content = arg.content;
         let crel = document.querySelector("#snippet-ddl");
@@ -60,6 +48,10 @@ function initEditor() {
         doLayout();
     });
 
+    //ipcMainからのイベント処理(右クリックメニュー＞検索パネルを表示をクリック)
+    ipcRenderer.on("disp-search-panel", () => {
+        ace.config.loadModule("ace/ext/searchbox", function(e) {e.Search(editor)});
+    });
 }
 
 function setEditorTheme(extension) {
@@ -96,53 +88,15 @@ function headingReplaceButton() {
     };
 }
 
-function strongInsertButton() {
-    document.querySelector("#strong-insert").onclick = function() {
-        tu.insert_tag("strong", "");
-    };
-}
-
 function listReplaceButton() {
     document.querySelector("#list-replace").onclick = function() {
         tu.list_replace();
     };
 }
 
-function targetBlankReplaceButton() {
-    document.querySelector("#target-blank-replace").onclick = function() {
-        tu.target_blank_replace();
-    }
-}
-
-function showSearchPanelButton() {
-    document.querySelector("#show-search-panel").onclick = function() {
-        ace.config.loadModule("ace/ext/searchbox", function(e) {e.Search(editor)});
-    };
-}
-
-function bkmkTagAndAttrDelButton() {
-    document.querySelector("#bkmk-tag-and-attr-del").onclick = function() {
-        tu.bkmk_tag_and_attr_del();
-    }
-}
-
 function duplicateLineButton() {
     document.querySelector("#duplicate-line").onclick = function() {
         editor.copyLinesDown();
-    }
-}
-
-function altAttrEditButton() {
-    document.querySelector("#alt-attr-edit").onclick = function() {
-        //ipcMainに処理を移譲
-        ipcRenderer.send("alt-attr-edit", "dummy");
-    }
-}
-
-function insertLabelTagButton() {
-    document.querySelector("#insert-label-tag").onclick = function() {
-        //ipcMainに処理を移譲
-        ipcRenderer.send("insert-label-tag", "dummy");
     }
 }
 
@@ -492,5 +446,23 @@ function numberingInsertButton() {
             crtxt = crtxt += ".";
         }
         editor.session.replace(range, crtxt);
+    }
+}
+
+function bracketInsertButton() {
+    document.querySelector("#bracket-insert").onclick = function() {
+        let crtxt = "";
+        let crel = document.querySelector("#bracket-ddl");
+        let opts = crel.getElementsByTagName("option");
+        let idx = crel.selectedIndex;
+        let cnt = 0;
+        for(var op of opts) {
+            if(idx==cnt) {
+                crtxt = op.textContent;
+                break;
+            }
+            cnt++;
+        }
+        tu.insert_any_bracket(crtxt);
     }
 }

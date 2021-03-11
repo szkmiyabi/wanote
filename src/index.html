@@ -13,15 +13,9 @@
         <button id="open" class="tooltip"><i class="fas fa-folder-open"></i><span>ファイルを開きます</span></button>
         <button id="new" class="tooltip"><i class="far fa-file"></i><span>新規ファイルを作成します</span></button>
         <button id="save" class="tooltip"><i class="fas fa-save"></i><span>ファイルを保存します</span></button>
-        <button id="show-search-panel" class="tooltip"><i class="fas fa-search"></i><span>文書内を検索します</span></button>
         <button id="heading-replace" class="tooltip"><i class="fas fa-heading"></i><span>独自タグで囲んだ範囲を自動で見出しにします</span></button>
         <button id="list-replace" class="tooltip"><i class="fas fa-list-ul"></i><span>独自タグで囲んだ範囲を自動でリストにします</span></button>
-        <button id="strong-insert" class="tooltip"><i class="fas fa-bold"></i><span>strongで囲みます</span></button>
-        <button id="target-blank-replace" class="tooltip"><i class="fas fa-external-link-square-alt"></i><span>別ウィンドウで開くことを明示します</span></button>
-        <button id="bkmk-tag-and-attr-del" class="tooltip"><i class="fas fa-magic"></i><span>minbrowser及びpresv-addonシュミレーションで付与されたタグと属性を消去します</span></button>
-        <button id="duplicate-line" class="tooltip"><i class="fas fa-copyright"></i><span>選択した行を複製します(複数行に対応)</span></button>
-        <button id="alt-attr-edit" class="tooltip"><i class="far fa-image"></i><span>複数行のimgタグコードのalt属性値を一括修正します</span></button>
-        <button id="insert-label-tag" class="tooltip"><i class="fas fa-tags"></i><span>label要素で囲みfor属性も指定します</span></button>
+        <button id="duplicate-line" class="tooltip"><i class="fas fa-clone"></i><span>選択した行を複製します(複数行に対応)</span></button>
         <button id="erase-indent" class="tooltip"><i class="fas fa-eraser"></i><span>ソースコードのインデントを除去します。</span></button>
         <button id="erase-tag" class="tooltip"><i class="fas fa-bone"></i><span>ソースコードのタグを除去し、プレーンテキストに変換します。</span></button>
         <button id="sv-base" class="tooltip"><i class="fas fa-bong"></i><span>copyブックマークレットの空のひな形を挿入します。</span></button>
@@ -30,6 +24,7 @@
         <button id="sv-decode-plus" class="tooltip"><i class="far fa-comments"></i><span>libra-ps-addonのall-cpのひな形データを整形して表示します</span></button>
         <button id="sv-encode-plus" class="tooltip"><i class="fas fa-boxes"></i><span>整形済み判定ひな形データをlibra-ps-addonのall-psひな形に変換して挿入します</span></button>
         <button id="insert-return" class="tooltip"><i class="fas fa-level-down-alt rotate90"></i><span>カーソル位置に改行を挿入します</span></button>
+        <label class="ddl">文言</label>
         <select id="snippet-ddl"></select>
         <button id="snippet-insert" class="tooltip"><i class="fas fa-pen"></i><span>comboで選択した文字列を挿入します</span></button>
         <button id="any-tag-insert" class="tooltip"><i class="fas fa-code"></i><span>comboで選択した要素タグのひな形で選択範囲を囲みます</span></button>
@@ -38,6 +33,10 @@
         <button id="snippet-diag" class="tooltip"><i class="fas fa-keyboard"></i><span>ダイアログからcomboに値を追加します</span></button>
         <button id="snippet-load" class="tooltip"><i class="fas fa-folder-plus"></i><span>ファイルからcomboに値を追加します</span></button>
         <button id="snippet-save" class="tooltip"><i class="fas fa-database"></i><span>ファイルにcomboの値一覧を保存します</span></button>
+        <label class="ddl">囲み</label>
+        <select id="bracket-ddl"></select>
+        <button id="bracket-insert" class="tooltip"><i class="fas fa-pen"></i><span>comboで選択した記号で囲みます</span></button>
+        <label class="ddl">連番</label>
         <select id="numbering-ddl"></select>
         <button id="numbering-insert" class="tooltip"><i class="fas fa-pen"></i><span>comboで選択した連番文字列を挿入します</span></button>
 
