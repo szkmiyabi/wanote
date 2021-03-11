@@ -5,7 +5,6 @@ window.onload = function() {
     initEditor();
     headingReplaceButton();
     listReplaceButton();
-    //showSearchPanelButton();
     duplicateLineButton();
     insertReturnButton();
     saveButton();
