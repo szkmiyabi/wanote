@@ -57,9 +57,12 @@ function doNumberingDropdown() {
 }
 
 function doSnippetDropdown() {
+    var date = new Date();
+    var date_str = (date.getMonth()+1) + "/" + date.getDate();
     var ddl = document.querySelector("#snippet-ddl");
     var opts = [
         "p","span","strong", "em","ul","li","dl","dt","dd","h2","h3","h4","h5","h6","h1","ol","div","nav",
+        "～まで","■","●","セクション","ボタン","サイドバー",date_str
     ];
     for(var i=0; i<opts.length; i++) {
         var line = opts[i];
